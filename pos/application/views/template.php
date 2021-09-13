@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="<?=base_url()?>/assets/bower_components/jvectormap/jquery-jvectormap.css">
   <link rel="stylesheet" href="<?=base_url()?>/assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <link rel="stylesheet" href="<?=base_url()?>/assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="<?=base_url()?>/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="<?=base_url()?>/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -139,38 +140,50 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">MAIN NAVIGATION</li>
-          <li>
+          <li <?= $this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '' ? 'class="active"' : '' ?> >
               <a href="<?= site_url('dashboard') ?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span> </a>
           </li>
-          <li>
+          <li <?= $this->uri->segment(1) == 'supplier' ? 'class="active"' : '' ?> >
               <a href="<?= site_url('supplier') ?>"><i class="fa fa-truck"></i> <span>Suppliers</span> </a>
           </li>
-          <li>
-              <a href="#"><i class="fa fa-users"></i> <span>Customers</span> </a> 
+          <li <?= $this->uri->segment(1) == 'customer' ? 'class="active"' : '' ?>>
+              <a href="<?= site_url('customer') ?>"><i class="fa fa-users"></i> <span>Customers</span> </a> 
           </li>
-          <li class="treeview">
+          <li <?= $this->uri->segment(1) == 'gudang' ? 'class="active"' : '' ?>>
+              <a href="<?= site_url('gudang') ?>"><i class="fa fa-archive"></i> <span>Gudang</span> </a> 
+          </li>
+          <li <?= $this->uri->segment(1) == 'item' ? 'class="active"' : '' ?>>
+              <a href="<?= site_url('item') ?>"><i class="fa fa-cubes"></i> <span>Items</span> </a> 
+          </li>
+          <li class="treeview <?= $this->uri->segment(1) == 'category' || 
+          $this->uri->segment(1) == 'unit' || 
+          $this->uri->segment(1) == 'item' ? 'active' : '' ?>"  >
               <a href="#">
-                  <i class="fa fa-archive"></i> <span>Products</span>
+                  <i class="fa fa-random"></i> <span>Products</span>
                   <span class="pull-right-container"><i class="fa fa-angel-left pull-right"></i></span>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Categories</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Unist</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Items</a></li>
+                  <li <?= $this->uri->segment(1) == 'category' ? 'class="active"' : '' ?>><a href="<?= site_url('category') ?>"><i class="fa fa-circle-o"></i> Categories</a></li>
+                  <li <?= $this->uri->segment(1) == 'unit' ? 'class="active"' : '' ?>><a href="<?= site_url('unit') ?>"><i class="fa fa-circle-o"></i> Units</a></li>
+                  <li <?= $this->uri->segment(1) == 'item' ? 'class="active"' : '' ?>><a href="<?= site_url('item') ?>"><i class="fa fa-circle-o"></i> Items</a></li>
               </ul>
           </li>
-          <li class="treeview">
+          <li class="treeview <?= $this->uri->segment(1) == 'stock' ? 'active' : '' ?>" >
               <a href="#">
                   <i class="fa fa-shopping-cart"></i> <span>Transactions</span>
                   <span class="pull-right-container"><i class="fa fa-angel-left pull-right"></i></span>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Sales</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Stock In</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Stock Out</a></li>
+                  <!-- <li <?= $this->uri->segment(1) == 'sales' ? 'class="active"' : '' ?>><a href="<?= site_url('sales') ?>"><i class="fa fa-circle-o"></i> Sales</a></li> -->
+                  <li <?= $this->uri->segment(1) == 'stock' && $this->uri->segment(2) == 'in' ? 'class="active"' : '' ?>>
+                    <a href="<?= site_url('stock/in') ?>"><i class="fa fa-circle-o"></i> Stock In</a>
+                  </li>
+                  <li <?= $this->uri->segment(1) == 'stock_out_data' ? 'class="active"' : '' ?>>
+                    <a href="<?= site_url('stock/out') ?>"><i class="fa fa-circle-o"></i> Stock Out</a>
+                  </li>
               </ul>
           </li>
-          <li class="treeview">
+          <!-- <li class="treeview">
               <a href="#">
                   <i class="fa fa-pie-chart"></i> <span>Reports</span>
                   <span class="pull-right-container"><i class="fa fa-angel-left pull-right"></i></span>
@@ -179,7 +192,7 @@
                   <li><a href="#"><i class="fa fa-circle-o"></i> Sales</a></li>
                   <li><a href="#"><i class="fa fa-circle-o"></i> Stocks</a></li>
               </ul>
-          </li>
+          </li> -->
           <?php if($this->fungsi->user_login() ->level == 1){ ?>
           <li class="header">SETTINGS</li>
           <li><a href="<?= site_url('user') ?>"><i class="fa fa-user"></i><span>Users</span></a></li>
@@ -188,6 +201,8 @@
       </section>
       <!-- /.sidebar -->
     </aside>
+
+    <script src="<?=base_url()?>/assets/bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -206,7 +221,7 @@
   <!-- ./wrapper -->
 
   <!-- jQuery 3 -->
-  <script src="<?=base_url()?>/assets/bower_components/jquery/dist/jquery.min.js"></script>
+  
   <!-- jQuery UI 1.11.4 -->
   <script src="<?=base_url()?>/assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -236,11 +251,21 @@
   <script src="<?=base_url()?>/assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
   <!-- FastClick -->
   <script src="<?=base_url()?>/assets/bower_components/fastclick/lib/fastclick.js"></script>
+  <!-- AdminLTE Table -->
+  <script src="<?=base_url()?>/assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="<?=base_url()?>/assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
   <!-- AdminLTE App -->
   <script src="<?=base_url()?>/assets/dist/js/adminlte.min.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="<?=base_url()?>/assets/dist/js/pages/dashboard.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="<?=base_url()?>/assets/dist/js/demo.js"></script>
+
+  <script>
+    $(document).ready(function(){
+      $('#table1').DataTable()
+    })
+  </script>
+
 </body>
 </html>

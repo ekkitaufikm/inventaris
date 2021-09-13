@@ -40,6 +40,7 @@
           <div class="col-xs-8"></div>
           <div class="col-xs-4">
             <button type="submit" name="login" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            <!-- <button type="submit" name="signup" class="btn btn-primary btn-block btn-flat">Sign Up</button> -->
           </div>
         </div>
       </form>

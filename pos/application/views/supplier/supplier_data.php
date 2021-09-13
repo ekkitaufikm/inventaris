@@ -23,7 +23,7 @@
         </div>
         <div class="box-body table-responsive" >
             <!-- <?php print_r($row)?> -->
-            <table class="table table-border table-stripped">
+            <table class="table table-border table-stripped" id="table1">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -44,8 +44,11 @@
                         <td><?= $data->alamat ?></td>
                         <td><?= $data->des ?></td>
                         <td class="text-center" width="160px">
+                            <a href="<?= site_url('supplier/edit/'.$data->supplier_id) ?>" class="btn btn-primary btn-xs" >
+                                <i class="fa fa-pencil"> Update</i>
+                            </a>
                             <a href="<?= site_url('supplier/del/'.$data->supplier_id) ?>" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger btn-xs" >
-                                <i class="fa fa-pencil"> Delete</i>
+                                <i class="fa fa-trash"> Delete</i>
                             </a>                           
                         </td>
                     </tr>

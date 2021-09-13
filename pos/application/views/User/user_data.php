@@ -23,7 +23,7 @@
         </div>
         <div class="box-body table-responsive" >
             <!-- <?php print_r($row)?> -->
-            <table class="table table-border table-stripped">
+            <table class="table table-border table-stripped" id="table1">
                 <thead>
                     <tr>
                         <th>#</th>
